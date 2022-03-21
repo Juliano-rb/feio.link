@@ -4,6 +4,8 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import ReactTypingEffect from "react-typing-effect";
 
+const UGLY_WORDS = ["BOLSONARO", "SUA MÃE", "O FDP DO PUTIN"];
+
 const Home: NextPage = () => {
   return (
     <div className={styles.container}>
@@ -19,7 +21,7 @@ const Home: NextPage = () => {
           <ReactTypingEffect
             eraseSpeed={100}
             typingDelay={100}
-            text={["BOLSONARO", "SUA MÃE"]}
+            text={UGLY_WORDS}
           />
         </h1>
 
