@@ -13,7 +13,7 @@ export const Container = styled.div`
   height: fit-content;
 
   textarea {
-    height: 100%;
+    height: 32px;
     background-color: #edfff0;
     border: none;
     font-size: 16px;
@@ -32,7 +32,7 @@ export const Container = styled.div`
     font-size: 16px;
     position: absolute;
     transform-origin: top center;
-    transform: translate(80px, 13px) scale(1);
+    transform: translate(80px, 5px) scale(1);
     transition: all 0.25s ease-in-out; //speed
   }
 
