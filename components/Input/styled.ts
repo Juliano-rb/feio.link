@@ -8,18 +8,21 @@ export const Container = styled.div`
   margin-bottom: 8px;
   padding: 0 8px;
   position: relative;
-  width: 300px;
   border-radius: 6px;
+  width: fit-content;
   height: fit-content;
 
-  input {
+  textarea {
     height: 100%;
     background-color: #edfff0;
     border: none;
     font-size: 16px;
     outline: 0;
-    padding: 16px 0 10px;
-    width: 100%;
+    padding: 5px 5px 5px;
+    width: 300px;
+    max-width: 300px;
+    max-height: 100px;
+    resize: none;
   }
 
   label {

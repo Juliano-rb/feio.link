@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import * as S from "./styled";
 
-type Props = Partial<HTMLInputElement> & {
+type Props = Partial<HTMLTextAreaElement> & {
   label?: string;
 };
 
@@ -21,17 +21,23 @@ export const Input = (props: Props) => {
     target.removeAttribute("placeholder");
   };
 
+  const onInputFixHeight = (e: any) => {
+    const textArea = e.target;
+    textArea.style.height = "";
+    textArea.style.height = textArea.scrollHeight + "px";
+  };
+
   useEffect(() => {
     // register events
     const bindEvents = (element: any) => {
-      const floatField = element.querySelector("input");
+      const floatField = element.querySelector("textarea");
       floatField.addEventListener("focus", handleFocus);
       floatField.addEventListener("blur", handleBlur);
     };
 
     const floatContainer = document.getElementById(props.id || "floatInput");
     console.log(floatContainer);
-    if (floatContainer?.querySelector("input")?.value) {
+    if (floatContainer?.querySelector("textarea")?.value) {
       floatContainer?.classList.add("active");
     }
 
@@ -40,7 +46,7 @@ export const Input = (props: Props) => {
   return (
     <S.Container id={props.id || "floatInput"}>
       <label htmlFor="floatField">{props.label}</label>
-      <input id={"floatField"} type="text" />
+      <textarea id={"floatField"} onInput={onInputFixHeight} />
     </S.Container>
   );
 };
