@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { createRef, useEffect } from "react";
 import * as S from "./styled";
 
 type Props = Partial<HTMLTextAreaElement> & {
@@ -6,6 +6,7 @@ type Props = Partial<HTMLTextAreaElement> & {
 };
 
 export const TextArea = (props: Props) => {
+  const textAreaRef = createRef<HTMLTextAreaElement>();
   // add active class
   const handleFocus = (e: any) => {
     const target = e.target;
@@ -26,26 +27,16 @@ export const TextArea = (props: Props) => {
     textArea.style.height = textArea.scrollHeight + "px";
   };
 
-  useEffect(() => {
-    // register events
-    const bindEvents = (element: HTMLDivElement) => {
-      const floatField = element.querySelector(
-        "textarea"
-      ) as HTMLTextAreaElement;
-      floatField.addEventListener("focus", handleFocus);
-      floatField.addEventListener("blur", handleBlur);
-    };
-
-    const floatContainer: HTMLDivElement = document.getElementById(
-      props.id || "floatInput"
-    ) as HTMLDivElement;
-
-    floatContainer && bindEvents(floatContainer);
-  }, [props.id]);
   return (
     <S.Container id={props.id || "floatInput"}>
       <label htmlFor="floatField">{props.label}</label>
-      <textarea id={"floatField"} onInput={onInputSetHeight} />
+      <textarea
+        ref={textAreaRef}
+        id={"floatField"}
+        onFocus={handleFocus}
+        onBlur={handleBlur}
+        onInput={onInputSetHeight}
+      />
     </S.Container>
   );
 };
