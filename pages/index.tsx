@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import ReactTypingEffect from "react-typing-effect";
-import { TextArea } from "../components";
+import { Button, TextArea } from "../components";
 
 const UGLY_WORDS = ["BOLSONARO", "SUA MÃE", "O FDP DO PUTIN"];
 
@@ -31,6 +31,8 @@ const Home: NextPage = () => {
           label="cole seu link aqui"
           type="text"
         />
+
+        <Button>Enviar</Button>
       </main>
 
       <footer className={styles.footer}>
