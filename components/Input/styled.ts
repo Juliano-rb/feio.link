@@ -40,6 +40,7 @@ export const Container = styled.div`
   &.active {
     label {
       opacity: 0;
+      visibility: hidden;
     }
   }
 `;

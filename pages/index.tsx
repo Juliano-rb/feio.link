@@ -3,7 +3,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import ReactTypingEffect from "react-typing-effect";
-import { Input } from "../components";
+import { TextArea } from "../components";
 
 const UGLY_WORDS = ["BOLSONARO", "SUA MÃE", "O FDP DO PUTIN"];
 
@@ -26,7 +26,11 @@ const Home: NextPage = () => {
           />
         </h1>
 
-        <Input label="cole seu link aqui" type="text" />
+        <TextArea
+          placeholder="Ola porra"
+          label="cole seu link aqui"
+          type="text"
+        />
 
         <div className={styles.grid}>
           <a href="https://nextjs.org/docs" className={styles.card}>

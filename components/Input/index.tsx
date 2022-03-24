@@ -5,7 +5,7 @@ type Props = Partial<HTMLTextAreaElement> & {
   label?: string;
 };
 
-export const Input = (props: Props) => {
+export const TextArea = (props: Props) => {
   // add active class
   const handleFocus = (e: any) => {
     const target = e.target;
@@ -18,10 +18,9 @@ export const Input = (props: Props) => {
     if (!target.value) {
       target.parentNode.classList.remove("active");
     }
-    target.removeAttribute("placeholder");
   };
 
-  const onInputFixHeight = (e: any) => {
+  const onInputSetHeight = (e: any) => {
     const textArea = e.target;
     textArea.style.height = "";
     textArea.style.height = textArea.scrollHeight + "px";
@@ -29,24 +28,24 @@ export const Input = (props: Props) => {
 
   useEffect(() => {
     // register events
-    const bindEvents = (element: any) => {
-      const floatField = element.querySelector("textarea");
+    const bindEvents = (element: HTMLDivElement) => {
+      const floatField = element.querySelector(
+        "textarea"
+      ) as HTMLTextAreaElement;
       floatField.addEventListener("focus", handleFocus);
       floatField.addEventListener("blur", handleBlur);
     };
 
-    const floatContainer = document.getElementById(props.id || "floatInput");
-    console.log(floatContainer);
-    if (floatContainer?.querySelector("textarea")?.value) {
-      floatContainer?.classList.add("active");
-    }
+    const floatContainer: HTMLDivElement = document.getElementById(
+      props.id || "floatInput"
+    ) as HTMLDivElement;
 
     floatContainer && bindEvents(floatContainer);
   }, [props.id]);
   return (
     <S.Container id={props.id || "floatInput"}>
       <label htmlFor="floatField">{props.label}</label>
-      <textarea id={"floatField"} onInput={onInputFixHeight} />
+      <textarea id={"floatField"} onInput={onInputSetHeight} />
     </S.Container>
   );
 };
