@@ -57,6 +57,10 @@ export const TextArea = (props: Props) => {
           onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
             props.onChange && props.onChange(e);
           }}
+          autoCapitalize="off"
+          spellCheck="true"
+          autoComplete="on"
+          autoCorrect="off"
         />
       </div>
       <div>{props.children}</div>
