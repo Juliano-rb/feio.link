@@ -55,6 +55,7 @@ const Home: NextPage = () => {
 
           <Button type="submit" value="Enviar" />
         </form>
+
         {shortenedUrl && <TextArea name="result" value={shortenedUrl} />}
       </main>
 

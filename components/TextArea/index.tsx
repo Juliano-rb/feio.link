@@ -11,7 +11,6 @@ type Props = {
 };
 
 export const TextArea = (props: Props) => {
-  const [inputValue, setInputValue] = useState(props.value || "");
   const textAreaRef = createRef<HTMLTextAreaElement>();
   // add active class
   const handleFocus = (e: any) => {
@@ -40,7 +39,7 @@ export const TextArea = (props: Props) => {
         ref={textAreaRef}
         name={props.name}
         id={`${props.id}_floatField`}
-        value={inputValue}
+        value={props.value}
         onFocus={handleFocus}
         onBlur={handleBlur}
         onInput={(e: ChangeEvent<HTMLTextAreaElement>) => {
@@ -48,7 +47,6 @@ export const TextArea = (props: Props) => {
           props.onInput && props.onInput(e);
         }}
         onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
-          setInputValue(e.target.value);
           props.onChange && props.onChange(e);
         }}
       />
