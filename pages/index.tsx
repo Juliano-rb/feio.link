@@ -4,18 +4,13 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import ReactTypingEffect from "react-typing-effect";
 import { Button, TextArea } from "../components";
-import { ChangeEvent, useState } from "react";
+import { FormEvent, useState } from "react";
+import axios from "axios";
 
 const UGLY_WORDS = ["BOLSONARO", "SUA MÃE", "O FDP DO PUTIN"];
 
-const submitData =(e: any)=>{
-  e.preventDefault()
-
-  console.log(e)
-}
-
 const Home: NextPage = () => {
-  const [urlValue, setUrlValue] = useState()
+  const [shortenedUrl, setShortenedUrl] = useState<string>("");
   return (
     <div className={styles.container}>
       <Head>
@@ -34,17 +29,33 @@ const Home: NextPage = () => {
           />
         </h1>
 
-        
-        <form onSubmit={submitData}>
-          <TextArea
-            placeholder="cole seu link aqui"
-            type="text"
-            // value={urlValue}
-            oninput={(e)=>{console.log(e)}}
-            />
+        <form
+          className={styles.form}
+          onSubmit={async (e: FormEvent<HTMLFormElement>) => {
+            try {
+              e.preventDefault();
+              const target = e.target as typeof e.target & {
+                url: { value: string };
+              };
 
-          <Button type="submit">Enviar</Button>
+              const url = target.url.value;
+
+              const response = await axios.post<string>("/api/shorten", {
+                url,
+              });
+
+              setShortenedUrl(response.data);
+              console.log(response);
+            } catch (error) {
+              console.log(error);
+            }
+          }}
+        >
+          <TextArea name="url" placeholder="cole seu link aqui" />
+
+          <Button type="submit" value="Enviar" />
         </form>
+        {shortenedUrl && <TextArea name="result" value={shortenedUrl} />}
       </main>
 
       <footer className={styles.footer}>

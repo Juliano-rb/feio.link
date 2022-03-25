@@ -1,6 +1,6 @@
 import styled from "styled-components";
 
-export const Button = styled.button`
+export const Button = styled.input`
   background-color: #6347ff;
   border: 1px solid #8c8c8c;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
@@ -10,4 +10,5 @@ export const Button = styled.button`
   color: white;
   border-radius: 6px;
   padding: 5px 20px;
+  width: 100px;
 `;

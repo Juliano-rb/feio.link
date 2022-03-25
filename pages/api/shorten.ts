@@ -12,13 +12,12 @@ export default async function handler(
       const { url } = req.body;
 
       const response = await axios.post<ShortenedResponse>(endpoint, { url });
-
-      res.send(response.data);
+      res.send(`${endpoint}/${response.data.shortUrlID}`);
     } else {
       res.status(400).send("Method not allowed");
     }
   } catch (error) {
     console.log("error:", error);
-    res.status(500);
+    res.status(500).send("Error resolving url, did your provided a valid url?");
   }
 }

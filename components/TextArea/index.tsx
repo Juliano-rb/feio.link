@@ -1,13 +1,17 @@
-import React, { createRef, FormEvent, useEffect } from "react";
+import React, { ChangeEvent, createRef, FormEvent, useState } from "react";
 import * as S from "./styled";
 
-type Props = Partial<HTMLTextAreaElement> & {
-  label?: string;
+type Props = {
+  name: string;
+  value?: string;
+  id?: string;
+  placeholder?: string;
+  onInput?: React.FormEventHandler<HTMLTextAreaElement>;
+  onChange?: React.FormEventHandler<HTMLTextAreaElement>;
 };
 
-// type Props = HTMLTextAreaElement;
-
 export const TextArea = (props: Props) => {
+  const [inputValue, setInputValue] = useState(props.value || "");
   const textAreaRef = createRef<HTMLTextAreaElement>();
   // add active class
   const handleFocus = (e: any) => {
@@ -31,13 +35,22 @@ export const TextArea = (props: Props) => {
 
   return (
     <S.Container id={props.id || "floatInput"}>
-      <label htmlFor="floatField">{props.placeholder}</label>
+      <label htmlFor={`${props.id}_floatField`}>{props.placeholder}</label>
       <textarea
         ref={textAreaRef}
-        id={"floatField"}
+        name={props.name}
+        id={`${props.id}_floatField`}
+        value={inputValue}
         onFocus={handleFocus}
         onBlur={handleBlur}
-        onInput={(e)=>{onInputSetHeight(e)}}
+        onInput={(e: ChangeEvent<HTMLTextAreaElement>) => {
+          onInputSetHeight(e);
+          props.onInput && props.onInput(e);
+        }}
+        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+          setInputValue(e.target.value);
+          props.onChange && props.onChange(e);
+        }}
       />
     </S.Container>
   );
