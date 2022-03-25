@@ -5,6 +5,7 @@ type Props = {
   name: string;
   value?: string;
   id?: string;
+  internalRef?: React.RefObject<HTMLTextAreaElement>;
   placeholder?: string;
   onInput?: React.FormEventHandler<HTMLTextAreaElement>;
   onChange?: React.FormEventHandler<HTMLTextAreaElement>;
@@ -12,7 +13,7 @@ type Props = {
 };
 
 export const TextArea = (props: Props) => {
-  const textAreaRef = createRef<HTMLTextAreaElement>();
+  const textAreaRef = props.internalRef || createRef<HTMLTextAreaElement>();
   // add active class
   const handleFocus = (e: any) => {
     const target = e.target;

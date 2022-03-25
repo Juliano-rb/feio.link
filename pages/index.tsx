@@ -4,7 +4,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import ReactTypingEffect from "react-typing-effect";
 import { Button, TextArea } from "../components";
-import { FormEvent, useState } from "react";
+import { createRef, FormEvent, useState } from "react";
 import axios from "axios";
 
 const UGLY_WORDS = ["BOLSONARO", "SUA MÃE", "O FDP DO PUTIN"];
@@ -24,8 +24,26 @@ const submitData = async (e: FormEvent<HTMLFormElement>) => {
   return response.data;
 };
 
+const copyResultToClipboard = async (resultElement: HTMLTextAreaElement) => {
+  /* Select the text field */
+  await resultElement?.select();
+  await resultElement?.setSelectionRange(0, 99999); /* For mobile devices */
+
+  if (!navigator.clipboard) {
+    alert("Erro ao copiar");
+    return;
+  }
+
+  /* Copy the text inside the text field */
+  navigator.clipboard.writeText(resultElement?.value || "");
+
+  alert("Copiado!");
+};
+
 const Home: NextPage = () => {
   const [shortenedUrl, setShortenedUrl] = useState<string>("");
+  const resultRef = createRef<HTMLTextAreaElement>();
+
   return (
     <div className={styles.container}>
       <Head>
@@ -71,15 +89,19 @@ const Home: NextPage = () => {
             }}
           >
             <h3>Olha só seu resultado:</h3>
-            <TextArea id="result" name="result" value={shortenedUrl}>
+            <TextArea
+              internalRef={resultRef}
+              id="result"
+              name="result"
+              value={shortenedUrl}
+            >
               <Button
                 color="#47FF63"
                 border="1px solid #3EDA55"
                 type="button"
                 value="Copiar"
-                onClick={(e) => {
-                  navigator.clipboard.writeText(shortenedUrl);
-                  alert("Copiado!");
+                onClick={async (e) => {
+                  resultRef.current && copyResultToClipboard(resultRef.current);
                 }}
               />
             </TextArea>
