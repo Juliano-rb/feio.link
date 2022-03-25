@@ -29,6 +29,7 @@ const copyResultToClipboard = async (resultElement: HTMLTextAreaElement) => {
   await resultElement?.select();
   await resultElement?.setSelectionRange(0, 99999); /* For mobile devices */
 
+  // @ts-ignore
   navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
     if (result.state == "granted" || result.state == "prompt") {
       if (!navigator.clipboard) {
