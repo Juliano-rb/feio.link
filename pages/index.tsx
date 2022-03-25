@@ -4,10 +4,18 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import ReactTypingEffect from "react-typing-effect";
 import { Button, TextArea } from "../components";
+import { ChangeEvent, useState } from "react";
 
 const UGLY_WORDS = ["BOLSONARO", "SUA MÃE", "O FDP DO PUTIN"];
 
+const submitData =(e: any)=>{
+  e.preventDefault()
+
+  console.log(e)
+}
+
 const Home: NextPage = () => {
+  const [urlValue, setUrlValue] = useState()
   return (
     <div className={styles.container}>
       <Head>
@@ -26,13 +34,17 @@ const Home: NextPage = () => {
           />
         </h1>
 
-        <TextArea
-          placeholder="Ola porra"
-          label="cole seu link aqui"
-          type="text"
-        />
+        
+        <form onSubmit={submitData}>
+          <TextArea
+            placeholder="cole seu link aqui"
+            type="text"
+            // value={urlValue}
+            oninput={(e)=>{console.log(e)}}
+            />
 
-        <Button>Enviar</Button>
+          <Button type="submit">Enviar</Button>
+        </form>
       </main>
 
       <footer className={styles.footer}>
