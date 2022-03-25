@@ -9,6 +9,21 @@ import axios from "axios";
 
 const UGLY_WORDS = ["BOLSONARO", "SUA MÃE", "O FDP DO PUTIN"];
 
+const submitData = async (e: FormEvent<HTMLFormElement>) => {
+  e.preventDefault();
+  const target = e.target as typeof e.target & {
+    url: { value: string };
+  };
+
+  const url = target.url.value;
+
+  const response = await axios.post<string>("/api/shorten", {
+    url,
+  });
+
+  return response.data;
+};
+
 const Home: NextPage = () => {
   const [shortenedUrl, setShortenedUrl] = useState<string>("");
   return (
@@ -33,21 +48,10 @@ const Home: NextPage = () => {
           className={styles.form}
           onSubmit={async (e: FormEvent<HTMLFormElement>) => {
             try {
-              e.preventDefault();
-              const target = e.target as typeof e.target & {
-                url: { value: string };
-              };
-
-              const url = target.url.value;
-
-              const response = await axios.post<string>("/api/shorten", {
-                url,
-              });
-
-              setShortenedUrl(response.data);
-              console.log(response);
+              const url = await submitData(e);
+              setShortenedUrl(url);
             } catch (error) {
-              console.log(error);
+              console.error(error);
             }
           }}
         >

@@ -1,4 +1,4 @@
-import React, { ChangeEvent, createRef, FormEvent, useState } from "react";
+import React, { ChangeEvent, createRef, FormEvent, useEffect } from "react";
 import * as S from "./styled";
 
 type Props = {
@@ -31,6 +31,12 @@ export const TextArea = (props: Props) => {
     textArea.style.height = "";
     textArea.style.height = textArea.scrollHeight + "px";
   };
+
+  useEffect(() => {
+    textAreaRef.current?.dispatchEvent(new Event("input", { bubbles: true }));
+
+    return () => {};
+  }, [props.value, textAreaRef]);
 
   return (
     <S.Container id={props.id || "floatInput"}>
