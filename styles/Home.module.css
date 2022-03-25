@@ -3,7 +3,7 @@
 }
 
 .main {
-  min-height: 100vh;
+  height: 96vh;
   padding: 2rem 0;
   flex: 1;
   display: flex;
@@ -22,9 +22,10 @@
 .footer {
   display: flex;
   flex: 1;
-  padding: 1rem 0;
+  padding: 0.5rem 0;
+  height: 4vh;
   border-top: 1px solid #eaeaea;
-  justify-content: flex-start;
+  justify-content: center;
   align-items: center;
 }
 
