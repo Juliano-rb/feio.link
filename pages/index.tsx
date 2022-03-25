@@ -44,24 +44,32 @@ const Home: NextPage = () => {
           />
         </h1>
 
-        <form
-          className={styles.form}
-          onSubmit={async (e: FormEvent<HTMLFormElement>) => {
-            try {
-              const url = await submitData(e);
-              setShortenedUrl(url);
-            } catch (error) {
-              console.error(error);
-            }
-          }}
-        >
-          <TextArea name="url" placeholder="cole seu link aqui" />
+        {!shortenedUrl && (
+          <form
+            className={styles.form}
+            onSubmit={async (e: FormEvent<HTMLFormElement>) => {
+              try {
+                const url = await submitData(e);
+                setShortenedUrl(url);
+              } catch (error) {
+                console.error(error);
+              }
+            }}
+          >
+            <TextArea name="url" placeholder="cole seu link aqui" />
 
-          <Button type="submit" value="Enviar" />
-        </form>
+            <Button type="submit" value="Enviar" />
+          </form>
+        )}
 
         {shortenedUrl && (
-          <div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
             <h3>Olha só seu resultado:</h3>
             <TextArea id="result" name="result" value={shortenedUrl}>
               <Button
@@ -75,6 +83,14 @@ const Home: NextPage = () => {
                 }}
               />
             </TextArea>
+            <Button
+              width="100px"
+              type="submit"
+              value="Voltar"
+              onClick={() => {
+                setShortenedUrl("");
+              }}
+            />
           </div>
         )}
       </main>
