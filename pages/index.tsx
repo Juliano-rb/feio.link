@@ -65,6 +65,8 @@ const Home: NextPage = () => {
             <h3>Olha só seu resultado:</h3>
             <TextArea id="result" name="result" value={shortenedUrl}>
               <Button
+                color="#47FF63"
+                border="1px solid #3EDA55"
                 type="button"
                 value="Copiar"
                 onClick={(e) => {

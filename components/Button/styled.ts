@@ -10,5 +10,4 @@ export const Button = styled.input<{ color?: string; border?: string }>`
   color: white;
   border-radius: 6px;
   padding: 5px 20px;
-  width: 100px;
 `;
