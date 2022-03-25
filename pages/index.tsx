@@ -29,15 +29,19 @@ const copyResultToClipboard = async (resultElement: HTMLTextAreaElement) => {
   await resultElement?.select();
   await resultElement?.setSelectionRange(0, 99999); /* For mobile devices */
 
-  if (!navigator.clipboard) {
-    alert("Erro ao copiar");
-    return;
-  }
+  navigator.permissions.query({ name: "clipboard-write" }).then((result) => {
+    if (result.state == "granted" || result.state == "prompt") {
+      if (!navigator.clipboard) {
+        alert("Erro ao copiar");
+        return;
+      }
 
-  /* Copy the text inside the text field */
-  navigator.clipboard.writeText(resultElement?.value || "");
+      /* Copy the text inside the text field */
+      navigator.clipboard.writeText(resultElement?.value || "");
 
-  alert("Copiado!");
+      alert("Copiado!");
+    }
+  });
 };
 
 const Home: NextPage = () => {
