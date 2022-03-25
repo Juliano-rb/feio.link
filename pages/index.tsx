@@ -60,7 +60,21 @@ const Home: NextPage = () => {
           <Button type="submit" value="Enviar" />
         </form>
 
-        {shortenedUrl && <TextArea name="result" value={shortenedUrl} />}
+        {shortenedUrl && (
+          <div>
+            <h3>Olha só seu resultado:</h3>
+            <TextArea id="result" name="result" value={shortenedUrl}>
+              <Button
+                type="button"
+                value="Copiar"
+                onClick={(e) => {
+                  navigator.clipboard.writeText(shortenedUrl);
+                  alert("Copiado!");
+                }}
+              />
+            </TextArea>
+          </div>
+        )}
       </main>
 
       <footer className={styles.footer}>

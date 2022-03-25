@@ -8,6 +8,7 @@ type Props = {
   placeholder?: string;
   onInput?: React.FormEventHandler<HTMLTextAreaElement>;
   onChange?: React.FormEventHandler<HTMLTextAreaElement>;
+  children?: React.ReactNode;
 };
 
 export const TextArea = (props: Props) => {
@@ -15,14 +16,14 @@ export const TextArea = (props: Props) => {
   // add active class
   const handleFocus = (e: any) => {
     const target = e.target;
-    target.parentNode.classList.add("active");
+    target.parentNode.parentNode.classList.add("active");
   };
 
   // remove active class
   const handleBlur = (e: any) => {
     const target = e.target;
     if (!target.value) {
-      target.parentNode.classList.remove("active");
+      target.parentNode.parentNode.classList.remove("active");
     }
   };
 
@@ -40,22 +41,25 @@ export const TextArea = (props: Props) => {
 
   return (
     <S.Container id={props.id || "floatInput"}>
-      <label htmlFor={`${props.id}_floatField`}>{props.placeholder}</label>
-      <textarea
-        ref={textAreaRef}
-        name={props.name}
-        id={`${props.id}_floatField`}
-        value={props.value}
-        onFocus={handleFocus}
-        onBlur={handleBlur}
-        onInput={(e: ChangeEvent<HTMLTextAreaElement>) => {
-          onInputSetHeight(e);
-          props.onInput && props.onInput(e);
-        }}
-        onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
-          props.onChange && props.onChange(e);
-        }}
-      />
+      <div className="left">
+        <label htmlFor={`${props.id}_floatField`}>{props.placeholder}</label>
+        <textarea
+          ref={textAreaRef}
+          name={props.name}
+          id={`${props.id}_floatField`}
+          value={props.value}
+          onFocus={handleFocus}
+          onBlur={handleBlur}
+          onInput={(e: ChangeEvent<HTMLTextAreaElement>) => {
+            onInputSetHeight(e);
+            props.onInput && props.onInput(e);
+          }}
+          onChange={(e: ChangeEvent<HTMLTextAreaElement>) => {
+            props.onChange && props.onChange(e);
+          }}
+        />
+      </div>
+      <div>{props.children}</div>
     </S.Container>
   );
 };

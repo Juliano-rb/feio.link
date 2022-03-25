@@ -6,12 +6,17 @@ export const Container = styled.div`
   background-color: #edfff0;
   box-sizing: border-box;
   margin-bottom: 8px;
-  padding: 0 8px;
+  padding: 3px;
   position: relative;
   border-radius: 6px;
-  width: fit-content;
+  width: 310px;
   height: fit-content;
 
+  display: flex;
+
+  .left {
+    width: 100%;
+  }
   textarea {
     height: 32px;
     background-color: #edfff0;
@@ -19,8 +24,7 @@ export const Container = styled.div`
     font-size: 16px;
     outline: 0;
     padding: 5px 5px 5px;
-    width: 300px;
-    max-width: 300px;
+    width: 100%;
     max-height: 100px;
     resize: none;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen,
