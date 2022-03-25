@@ -94,6 +94,13 @@ const Home: NextPage = () => {
               id="result"
               name="result"
               value={shortenedUrl}
+              onClick={async (e: any) => {
+                await resultRef.current?.select();
+                await resultRef.current?.setSelectionRange(
+                  0,
+                  99999
+                ); /* For mobile devices */
+              }}
             >
               <Button
                 color="#47FF63"

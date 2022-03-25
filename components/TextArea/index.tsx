@@ -1,4 +1,10 @@
-import React, { ChangeEvent, createRef, FormEvent, useEffect } from "react";
+import React, {
+  ChangeEvent,
+  createRef,
+  FormEvent,
+  MouseEventHandler,
+  useEffect,
+} from "react";
 import * as S from "./styled";
 
 type Props = {
@@ -9,11 +15,13 @@ type Props = {
   placeholder?: string;
   onInput?: React.FormEventHandler<HTMLTextAreaElement>;
   onChange?: React.FormEventHandler<HTMLTextAreaElement>;
+  onClick?: MouseEventHandler<HTMLDivElement>;
   children?: React.ReactNode;
 };
 
 export const TextArea = (props: Props) => {
   const textAreaRef = props.internalRef || createRef<HTMLTextAreaElement>();
+
   // add active class
   const handleFocus = (e: any) => {
     const target = e.target;
@@ -41,7 +49,7 @@ export const TextArea = (props: Props) => {
   }, [props.value, textAreaRef]);
 
   return (
-    <S.Container id={props.id || "floatInput"}>
+    <S.Container id={props.id || "floatInput"} onClick={props.onClick}>
       <div className="left">
         <label htmlFor={`${props.id}_floatField`}>{props.placeholder}</label>
         <textarea
